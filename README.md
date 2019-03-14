@@ -40,8 +40,7 @@ The following librarys are needed to compile the sketch:
 ---
   
 ## Compile Settings
-**Board: Generic ESP8266 Module**
-
+**Board: Generic ESP8266 Module**  
 Flash mode: DIO  
 Flash frequency: 40MHz  
 CPU frequency: 80MHz  
