@@ -116,7 +116,6 @@ void setup() {
 #elif UNICAST
   e131.begin(E131_UNICAST);  /* start e131 listening in unicast - no need to set universe */
 #endif
-  h801.setR(255);
 }
 
 void loop() {
