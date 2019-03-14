@@ -23,13 +23,15 @@
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
+#include <ESP8266HTTPUpdateServer.h>
+#include <ESP8266WebServer.h>
 #include "H801.h"
 #include "Settings.h"
 
-
-
 E131 e131;
 H801 h801;
+ESP8266WebServer httpServer(80);
+ESP8266HTTPUpdateServer httpUpdater;
 
 void setup() {
 #ifdef DEBUG_ENABLED
@@ -96,17 +98,31 @@ void setup() {
   Serial.println(WiFi.localIP());
 #endif
 
+  /* Web Browser Update SETUP */
+  MDNS.begin(hostname);
+
+  httpUpdater.setup(&httpServer);
+  httpServer.begin();
+
+  MDNS.addService("http", "tcp", 80);
+
+#ifdef DEBUG_ENABLED
+  Serial.printf("HTTPUpdateServer ready! Open http://%s.local/update in your browser\n", hostname);
+#endif
+
   /* E131 SETUP */
 #ifdef MULTICAST
   e131.begin(E131_MULTICAST, universe); /* start e131 listening in multicast mode and set universe */
 #elif UNICAST
   e131.begin(E131_UNICAST);  /* start e131 listening in unicast - no need to set universe */
 #endif
+  h801.setR(255);
 }
 
 void loop() {
   /* Handle OTA */
   ArduinoOTA.handle();
+  httpServer.handleClient();  // handle web browser update
 
   /* Handle sACN */
   /* Parse a packet */
