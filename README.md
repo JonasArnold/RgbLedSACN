@@ -29,7 +29,7 @@ By default Multicast type is used, but you can easily switch to Unicast in the S
 ## Librarys
 
 The following librarys are needed to compile the sketch:
-  - ESP8266WiFi: Install ESP8266 boards according to [this instructions](https://arduino-esp8266.readthedocs.io/en/latest/installing.html).
+  - ESP8266: Install ESP8266 boards according to [this instructions](https://arduino-esp8266.readthedocs.io/en/latest/installing.html).
   - [E131 by Forkineye](https://github.com/forkineye/E131) (not the Async one)
 
 ---
