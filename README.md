@@ -39,6 +39,15 @@ The following librarys are needed to compile the sketch:
 
 ---
   
+## OTA Update
+
+You can update your node over the **Arduino OTA** system.  
+Find the documentation about ArduinoOTA [here](https://arduino-test.esp8266.com/Arduino/versions/2.0.0/doc/ota_updates/ota_updates.html#classic-ota-configuration).  
+To configure the hostname, port and password use the **Settings.h** file.
+
+
+---
+  
 ## Compile Settings
 **Board: Generic ESP8266 Module**  
 Flash mode: DIO  

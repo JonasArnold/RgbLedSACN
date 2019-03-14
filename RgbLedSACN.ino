@@ -4,7 +4,7 @@
     Author:     JonasArnold
 
   Librarys needed:
-  - ESP8266WiFi: Install ESP8266 boards according to this instructions: https://arduino-esp8266.readthedocs.io/en/latest/installing.html
+  - ESP8266 Librarys: Install ESP8266 boards according to this instructions: https://arduino-esp8266.readthedocs.io/en/latest/installing.html
   - E131 by Forkineye (not the Async one): https://github.com/forkineye/E131
 
 	Usage:
@@ -18,9 +18,15 @@
 
 */
 
-#include "H801.h"
 #include <ESP8266WiFi.h>
 #include <E131.h>
+#include <ESP8266mDNS.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
+#include "H801.h"
+#include "Settings.h"
+
+
 
 E131 e131;
 H801 h801;
@@ -31,12 +37,77 @@ void setup() {
   delay(10);
 #endif
 
-  /* Choose one to begin listening for E1.31 data */
-  // e131.begin(ssid, passphrase);               /* via Unicast on the default port */
-  e131.beginMulticast(ssid, passphrase, 4); /* via Multicast for Universe 4 */
+  /* OTA SETUP */
+#ifdef DEBUG_ENABLED
+  Serial.println("Booting");
+#endif
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+#ifdef DEBUG_ENABLED
+    Serial.println("Connection Failed! Rebooting...");
+    delay(5000);
+#endif
+    ESP.restart();
+  }
+
+  // Port defaults to 8266
+  ArduinoOTA.setPort(otaPort);
+
+  // Hostname defaults to esp8266-[ChipID]
+  ArduinoOTA.setHostname(otaHostname);
+
+  // No authentication by default
+  ArduinoOTA.setPassword((const char *)otaPassword);
+
+  // Safety methods to help handling the OTA Update
+  ArduinoOTA.onStart([]() {
+#ifdef DEBUG_ENABLED
+    Serial.println("Start");
+#endif
+  });
+  ArduinoOTA.onEnd([]() {
+#ifdef DEBUG_ENABLED
+    Serial.println("\nEnd");
+#endif
+  });
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+#ifdef DEBUG_ENABLED
+    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+#endif
+  });
+  ArduinoOTA.onError([](ota_error_t error) {
+#ifdef DEBUG_ENABLED
+    Serial.printf("Error[%u]: ", error);
+    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+    else if (error == OTA_END_ERROR) Serial.println("End Failed");
+#endif
+  });
+
+  ArduinoOTA.begin();
+
+#ifdef DEBUG_ENABLED
+  Serial.println("Ready");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+#endif
+
+  /* E131 SETUP */
+#ifdef MULTICAST
+  e131.begin(E131_MULTICAST, universe); /* start e131 listening in multicast mode and set universe */
+#elif UNICAST
+  e131.begin(E131_UNICAST);  /* start e131 listening in unicast - no need to set universe */
+#endif
 }
 
 void loop() {
+  /* Handle OTA */
+  ArduinoOTA.handle();
+
+  /* Handle sACN */
   /* Parse a packet */
   uint16_t num_channels = e131.parsePacket();
 
