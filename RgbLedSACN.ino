@@ -116,6 +116,13 @@ void setup() {
 #elif UNICAST
   e131.begin(E131_UNICAST);  /* start e131 listening in unicast - no need to set universe */
 #endif
+
+  /* Blinking on Startup */
+  if(enableStartupBlinking)
+  {
+    startupBlinking(500);
+  }
+
 }
 
 void loop() {
@@ -152,3 +159,26 @@ void loop() {
 
   }
 }
+
+/*
+ * Lets every single channel of the h801 light up for a specific amount of time.
+ */
+void startupBlinking(int brightTime)
+{
+  h801.setR(255);
+  delay(brightTime);
+  h801.setR(0);
+  h801.setG(255);
+  delay(brightTime);
+  h801.setG(0);
+  h801.setB(255);
+  delay(brightTime);
+  h801.setB(0);
+  h801.setW1(255);
+  delay(brightTime);
+  h801.setW1(0);
+  h801.setW2(255);  
+  delay(brightTime);
+  h801.setW2(0);  
+}
+
