@@ -9,11 +9,11 @@
  * APP SETTINGS
  */
 
+const char hostname[] = "rgbLedSAcnNode";    // Hostname of the node
 const char ssid[] = "SSID";         /* Replace with your SSID */
 const char password[] = "PASSWORD";   /* Replace with your WPA2 passphrase */
-const char hostname[] = "rgbLedSAcnNode";    // Hostname of the node
-const int universe = 4;            /* Universe the Node listens to in Multicast mode */
-const int startChannel = 1;        /* Start Channel the Node listens to */
+const int universe = 1;            /* Universe the Node listens to in Multicast mode */
+const int startChannel = 100;        /* Start Channel the Node listens to */
 
 // Uncomment the E131 type you want to use
 #define MULTICAST
