@@ -36,7 +36,7 @@ The following librarys are needed to compile the sketch:
   
 ## Update OTA (over the air)
 
-You can update your node over **Arduino OTA**. [Documentation](https://arduino-test.esp8266.com/Arduino/versions/2.0.0/doc/ota_updates/ota_updates.html#classic-ota-configuration)
+You can update your node over **Arduino OTA**. [(Documentation)](https://arduino-test.esp8266.com/Arduino/versions/2.0.0/doc/ota_updates/ota_updates.html#classic-ota-configuration)  
 To configure the hostname, port and password use the **Settings.h** file.
 
 **To update make sure the computer is in the same network as the node!**
