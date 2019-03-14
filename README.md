@@ -4,9 +4,9 @@ Arduino sketch for **H801 WiFi RGBW LED driver board**. Makes the device control
 ---
 
 ## Usage
-Configure your settings in the **Settings.h** file.
-The software will make the H801 device listen on sACN and output the colors and brightness sent over sACN on the LED terminals.
-The start channel is the first channel of the node and it takes 5 channels to control all 5 led drivers:
+Configure your settings in the **Settings.h** file.  
+The software will make the H801 device listen on sACN and output the colors and brightness sent over sACN on the LED terminals.  
+The start channel is the first channel of the node and it takes 5 channels to control all 5 led drivers:  
 - Channel 1: Red value
 - Channel 2: Green value
 - Channel 3: Blue value
@@ -42,18 +42,11 @@ The following librarys are needed to compile the sketch:
 ## Compile Settings
 **Board: Generic ESP8266 Module**
 
-Flash mode: DIO
-
-Flash frequency: 40MHz
-
-CPU frequency: 80MHz
-
-**Flash size: 512K (64K SPIFFS)**
-
-Debug port: Disabled
-
-Debug level: None
-
-Reset method: ck
-
+Flash mode: DIO  
+Flash frequency: 40MHz  
+CPU frequency: 80MHz  
+**Flash size: 512K (64K SPIFFS)**  
+Debug port: Disabled  
+Debug level: None  
+Reset method: ck  
 Upload speed: 512000
