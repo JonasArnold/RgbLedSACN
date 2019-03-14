@@ -17,16 +17,11 @@ The start channel is the first channel of the node and it takes 5 channels to co
 
 ## sACN
 
-By default Multicast technology is enabled, but you can easily switch to Unicast by uncommenting this line:
-
+By default Multicast type is used, but you can easily switch to Unicast in the Settings.h file:
 ```
-e131.begin(ssid, passphrase);               /* via Unicast on the default port */
-```
-
-and commenting this line:
-
-```
-e131.beginMulticast(ssid, passphrase, 4); /* via Multicast for Universe 4 */
+// Uncomment the E131 type you want to use
+#define MULTICAST
+//#define UNICAST
 ```
 
 ---
@@ -57,4 +52,4 @@ CPU frequency: 80MHz
 Debug port: Disabled  
 Debug level: None  
 Reset method: ck  
-Upload speed: 512000
+**Upload speed: 115200**
