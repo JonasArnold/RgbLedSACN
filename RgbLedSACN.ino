@@ -1,7 +1,11 @@
 /*
     Name:       RgbLedSACN.ino
-    Created:	07.12.2018 17:08:10
+    Created:	  07.12.2018 17:08:10
     Author:     JonasArnold
+
+  Librarys needed:
+  - ESP8266WiFi: Install ESP8266 boards according to this instructions: https://arduino-esp8266.readthedocs.io/en/latest/installing.html
+  - E131 by Forkineye (not the Async one): https://github.com/forkineye/E131
 
 	Usage:
 	- This software will output the RGBW values from sACN Multicasted universe 4.
@@ -12,18 +16,11 @@
 	Channel 4: White1 value
 	Channel 5: White2 value
 
-
 */
 
 #include "H801.h"
 #include <ESP8266WiFi.h>
 #include <E131.h>
-
-
-const char ssid[] = "...";         /* Replace with your SSID */
-const char passphrase[] = "...";   /* Replace with your WPA2 passphrase */
-const int universe = 4;
-const int startChannel = 1;
 
 E131 e131;
 H801 h801;
