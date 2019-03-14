@@ -42,6 +42,7 @@ void setup() {
   Serial.println("Booting");
 #endif
   WiFi.mode(WIFI_STA);
+  WiFi.hostname(hostname);
   WiFi.begin(ssid, password);
   while (WiFi.waitForConnectResult() != WL_CONNECTED) {
 #ifdef DEBUG_ENABLED
@@ -55,10 +56,10 @@ void setup() {
   ArduinoOTA.setPort(otaPort);
 
   // Hostname defaults to esp8266-[ChipID]
-  ArduinoOTA.setHostname(otaHostname);
+  ArduinoOTA.setHostname(hostname);
 
   // No authentication by default
-  ArduinoOTA.setPassword((const char *)otaPassword);
+  ArduinoOTA.setPassword(otaPassword);
 
   // Safety methods to help handling the OTA Update
   ArduinoOTA.onStart([]() {
