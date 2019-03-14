@@ -48,7 +48,7 @@ To configure the hostname, port and password use the **Settings.h** file.
 Flash mode: DIO  
 Flash frequency: 40MHz  
 CPU frequency: 80MHz  
-**Flash size: 512K (64K SPIFFS)**  
+**Flash size: 1M (64K SPIFFS)**  
 Debug port: Disabled  
 Debug level: None  
 Reset method: ck  
